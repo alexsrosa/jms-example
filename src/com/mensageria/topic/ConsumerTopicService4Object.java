@@ -1,14 +1,13 @@
 package com.mensageria.topic;
 
 import com.mensageria.Consumer;
-import com.mensageria.modelo.Pedido;
 
 import java.util.Scanner;
 
 public class ConsumerTopicService4Object {
     public static void main(String[] args) throws Exception {
 
-        Consumer consumer = new Consumer("loja", "service1");
+        Consumer consumer = new Consumer("loja", "service4","assinatura4");
         consumer.messageListenerObject();
 
         // Mantém conexão

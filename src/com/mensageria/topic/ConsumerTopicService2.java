@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ConsumerTopicService2 {
     public static void main(String[] args) throws Exception {
 
-        Consumer consumer = new Consumer("loja", "service2");
+        Consumer consumer = new Consumer("loja", "service2","assinatura2");
         consumer.messageListener();
 
         // Mantém conexão

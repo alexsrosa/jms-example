@@ -10,7 +10,7 @@ public class ProducerTopicObject {
 
         Producer producer = new Producer("loja");
 
-        for(int i = 0; i <= 10; i++){
+        for(int i = 0; i <= 2; i++){
             Pedido pedido = new PedidoFactory().geraPedidoComValores();
             producer.sendMessage(pedido);
         }

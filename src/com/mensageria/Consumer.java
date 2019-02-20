@@ -1,12 +1,10 @@
 package com.mensageria;
 
-import com.mensageria.modelo.Pedido;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.jms.*;
 import javax.naming.NamingException;
-import java.io.Serializable;
 
 public class Consumer {
 
@@ -17,18 +15,29 @@ public class Consumer {
     public Consumer(String look, String clientId) throws NamingException, JMSException {
         this.connection = new JmsConnection(clientId);
         initMessageConsumer(look);
-        logger.info("Consumer inicializado!");
+        logger.info("Consumer de Queue inicializado!");
+    }
+
+    public Consumer(String look, String clientId, String subsName) throws NamingException, JMSException {
+        this.connection = new JmsConnection(clientId);
+        initMessageConsumer(look, subsName);
+        logger.info("Consumer topic inicializado!");
     }
 
     public Consumer(String look, String clientId, String subsName, String selector) throws NamingException, JMSException {
         this.connection = new JmsConnection(clientId);
         initMessageConsumer(look, subsName, selector);
-        logger.info("Consumer inicializado!");
+        logger.info("Consumer topic com selector inicializado!");
     }
 
     private void initMessageConsumer(String look) throws JMSException, NamingException {
+        this.messageConsumer = connection.getSession().createConsumer(
+                (Destination) connection.getContext().lookup(look));
+    }
+
+    private void initMessageConsumer(String look, String subsName) throws JMSException, NamingException {
         this.messageConsumer = connection.getSession().createDurableSubscriber(
-                (Topic) connection.getContext().lookup(look), "assinatura");
+                (Topic) connection.getContext().lookup(look), subsName);
     }
 
     private void initMessageConsumer(String look, String subsName, String selector) throws JMSException, NamingException {
@@ -55,6 +64,13 @@ public class Consumer {
         this.messageConsumer.setMessageListener(object -> {
             logger.info("Mensagem recebida com sucesso!");
             logger.info(object.toString());
+        });
+    }
+
+    public void messageListenerDLQ() throws JMSException {
+        this.messageConsumer.setMessageListener(message -> {
+            logger.info("Mensagem recebida com sucesso!");
+            logger.info(message);
         });
     }
 
