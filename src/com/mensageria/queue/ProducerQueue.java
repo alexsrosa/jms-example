@@ -8,7 +8,7 @@ public class ProducerQueue {
 
         Producer producer = new Producer("financeiro");
 
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 1; i++){
             producer.sendMessage("<pedido><id>".concat(String.valueOf(i)).concat("</id></pedido>"));
         }
 

@@ -18,7 +18,7 @@ public class Producer {
     private static final Logger logger = LogManager.getLogger(Producer.class);
 
     public Producer(String look) throws NamingException, JMSException {
-        this.connection = new JmsConnection("");
+        this.connection = new JmsConnection.Builder().clientId("").build();
         initMessageProducer(look);
         logger.info("Producer inicializado!");
     }

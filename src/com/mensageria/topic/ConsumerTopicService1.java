@@ -7,12 +7,17 @@ import java.util.Scanner;
 public class ConsumerTopicService1 {
     public static void main(String[] args) throws Exception {
 
-        Consumer consumerTopic = new Consumer("loja", "service1", "assinatura1");
-        consumerTopic.messageListener();
+        Consumer consumer = new Consumer.Builder()
+                .look("loja")
+                .clientId("service1")
+                .subsName("assinatura1")
+                .build();
+
+        consumer.messageListener();
 
         // Mantém conexão
         new Scanner(System.in).nextLine();
 
-        consumerTopic.close();
+        consumer.close();
     }
 }

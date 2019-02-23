@@ -7,8 +7,13 @@ import java.util.Scanner;
 public class ConsumerTopicService3 {
     public static void main(String[] args) throws Exception {
 
-        Consumer consumer =
-                new Consumer("loja", "service3", "assinatura3-selector", "admin=true");
+        Consumer consumer = new Consumer.Builder()
+                .look("loja")
+                .clientId("service3")
+                .subsName("assinatura3-selector")
+                .selector("admin=true")
+                .build();
+
         consumer.messageListener();
 
         // Mantém conexão
